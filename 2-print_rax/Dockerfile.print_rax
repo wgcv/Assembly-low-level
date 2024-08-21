@@ -14,23 +14,13 @@ RUN apt-get update && \
 WORKDIR /workspace
 
 # Copy the assembly code into the container
-COPY hello.asm /workspace/hello.asm
+COPY print_rax.asm /workspace/print_rax.asm
 
 # Assemble and link the assembly code
-RUN nasm -f elf64 hello.asm -o hello.o && \
-    ld -o hello hello.o
+RUN nasm -f elf64 print_rax.asm -o print_rax.o && \
+    ld -o print_rax print_rax.o
 
 # Command to run the executable
-CMD ["./hello"]
+CMD ["./print_rax"]
 
-# > nasm -felf64 hello.asm -o hello.o
-# > ld -o hello hello.o
-# > chmod u+x hello
-
-
-## Build the Docker image
-# docker build -t asm-env .
-# docker build -f Dockerfile.linux -t asm-env-linux .
-## Run the Docker container
-# docker run --rm asm-env
 
